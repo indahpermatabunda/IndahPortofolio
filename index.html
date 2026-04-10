@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Indah Permata Bunda — Data Analyst Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --blue-deep:   #0f3460;
+    --blue-mid:    #1a5ca8;
+    --blue-light:  #2d82d2;
+    --blue-pale:   #e8f2fd;
+    --blue-ghost:  #f0f6ff;
+    --white:       #ffffff;
+    --ink:         #0d1b2a;
+    --muted:       #5a6a7a;
+    --border:      #d0e0f0;
+    --gold:        #c8902a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--white);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 6rem;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; color: var(--blue-deep);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; font-weight: 600; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue-mid); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 55%, #2563b0 100%);
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 500px at 80% 20%, rgba(255,255,255,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 400px at 10% 90%, rgba(45,130,210,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; right: -120px; top: -120px;
+    width: 500px; height: 500px; border-radius: 50%;
+    border: 60px solid rgba(255,255,255,0.05);
+    pointer-events: none;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 10rem 4rem 6rem 6rem; position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #90c4f0; margin-bottom: 1.4rem;
+    opacity: 0; animation: fadeUp 0.6s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+    line-height: 1.12; color: #fff; margin-bottom: 0.6rem;
+    opacity: 0; animation: fadeUp 0.6s 0.35s forwards;
+  }
+  .hero-name em { font-style: italic; color: #90c4f0; }
+  .hero-role {
+    font-size: 1rem; font-weight: 400; color: rgba(255,255,255,0.6);
+    margin-bottom: 2rem; letter-spacing: 0.03em;
+    opacity: 0; animation: fadeUp 0.6s 0.5s forwards;
+  }
+  .hero-desc {
+    font-size: 0.93rem; color: rgba(255,255,255,0.72);
+    max-width: 420px; margin-bottom: 3rem; line-height: 1.85;
+    opacity: 0; animation: fadeUp 0.6s 0.65s forwards;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.6s 0.8s forwards;
+  }
+  .btn {
+    padding: 0.85rem 2rem; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; border-radius: 4px;
+    transition: all 0.25s; display: inline-block;
+  }
+  .btn-white { background: #fff; color: var(--blue-deep); }
+  .btn-white:hover { background: #e8f2fd; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .btn-outline-w {
+    background: transparent; color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+  .btn-outline-w:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+  .hero-right {
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 10rem 5rem 6rem 3rem; position: relative; z-index: 1;
+  }
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; width: 100%;
+    opacity: 0; animation: fadeUp 0.6s 1s forwards;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px; padding: 1.6rem 1.4rem;
+    backdrop-filter: blur(8px); transition: background 0.2s;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.13); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem; color: #fff; line-height: 1; display: block;
+  }
+  .stat-num sup { font-size: 1.2rem; color: #90c4f0; }
+  .stat-label {
+    font-size: 0.72rem; color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-top: 0.4rem; display: block;
+  }
+  .hero-contact-mini {
+    margin-top: 2.5rem; width: 100%;
+    opacity: 0; animation: fadeUp 0.6s 1.15s forwards;
+  }
+  .mini-row {
+    display: flex; align-items: center; gap: 0.7rem;
+    font-size: 0.78rem; color: rgba(255,255,255,0.55);
+    margin-bottom: 0.5rem; font-family: 'JetBrains Mono', monospace;
+  }
+  .mini-dot { width: 5px; height: 5px; border-radius: 50%; background: #90c4f0; flex-shrink: 0; }
+
+  /* SECTION BASE */
+  section { padding: 7rem 6rem; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 0.9rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::after {
+    content: ''; flex: 0 0 36px; height: 2px;
+    background: var(--blue-light); border-radius: 2px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    line-height: 1.2; color: var(--ink); margin-bottom: 1rem;
+  }
+  .section-sub { font-size: 0.95rem; color: var(--muted); max-width: 560px; margin-bottom: 3.5rem; }
+
+  /* ABOUT */
+  .about { background: var(--blue-ghost); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: #3a4a5a; margin-bottom: 1.1rem; font-size: 0.95rem; }
+  .skills-wrap h4 {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue-mid);
+    margin-bottom: 0.9rem; margin-top: 1.5rem;
+  }
+  .skills-wrap h4:first-child { margin-top: 0; }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-chip {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 20px; padding: 0.38rem 1rem;
+    font-size: 0.8rem; font-weight: 500; color: var(--ink);
+    transition: all 0.2s;
+  }
+  .skill-chip:hover { border-color: var(--blue-mid); color: var(--blue-mid); transform: translateY(-2px); }
+  .lang-box {
+    background: var(--blue-deep); color: #fff;
+    border-radius: 8px; padding: 1.2rem 1.5rem;
+    margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+  }
+  .lang-box .lang-name { font-weight: 600; font-size: 0.88rem; }
+  .lang-box .lang-score { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #90c4f0; }
+  .lang-box .lang-label { font-size: 0.68rem; color: rgba(255,255,255,0.45); letter-spacing: 0.08em; }
+
+  /* PROJECTS */
+  .projects { background: var(--white); }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .proj-card {
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--white); padding: 2rem;
+    transition: all 0.28s; position: relative; overflow: hidden;
+  }
+  .proj-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 4px; background: linear-gradient(90deg, var(--blue-mid), var(--blue-light));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .proj-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(26,92,168,0.12); border-color: var(--blue-light); }
+  .proj-card:hover::before { opacity: 1; }
+  .proj-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  .proj-icon {
+    width: 46px; height: 46px; border-radius: 10px;
+    background: var(--blue-pale); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1.2rem;
+  }
+  .proj-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--blue-mid); margin-bottom: 0.6rem; display: block;
+  }
+  .proj-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.22rem; color: var(--ink); margin-bottom: 0.8rem; line-height: 1.35;
+  }
+  .proj-card.featured .proj-title { font-size: 1.6rem; }
+  .proj-desc { font-size: 0.86rem; color: var(--muted); margin-bottom: 1.3rem; line-height: 1.75; }
+  .proj-impact {
+    background: var(--blue-ghost); border-radius: 6px;
+    padding: 0.85rem 1rem; margin-bottom: 1.2rem;
+    border-left: 3px solid var(--blue-mid);
+  }
+  .proj-impact .impact-label {
+    font-size: 0.67rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--blue-mid); display: block; margin-bottom: 0.2rem;
+  }
+  .proj-impact p { font-size: 0.82rem; color: var(--muted); }
+  .proj-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tech-tag {
+    font-size: 0.72rem; background: var(--blue-ghost);
+    color: var(--blue-deep); padding: 0.24rem 0.75rem;
+    border-radius: 20px; border: 1px solid var(--border); font-weight: 500;
+  }
+  .featured-right { display: flex; flex-direction: column; justify-content: center; }
+  .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .metric-item {
+    background: var(--blue-ghost); border-radius: 8px;
+    padding: 1.1rem; border: 1px solid var(--border); text-align: center;
+  }
+  .metric-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; color: var(--blue-deep); display: block; line-height: 1;
+  }
+  .metric-lbl { font-size: 0.67rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.3rem; display: block; }
+
+  /* EXPERIENCE */
+  .experience { background: var(--blue-deep); }
+  .experience .section-title { color: #fff; }
+  .experience .section-label { color: #90c4f0; }
+  .experience .section-label::after { background: #90c4f0; }
+  .exp-timeline { position: relative; }
+  .exp-timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px; background: rgba(144,196,240,0.2);
+  }
+  .exp-item {
+    padding-left: 3rem; margin-bottom: 3.5rem; position: relative;
+    opacity: 0; transform: translateY(16px); transition: all 0.5s;
+  }
+  .exp-item.visible { opacity: 1; transform: translateY(0); }
+  .exp-item::before {
+    content: ''; position: absolute; left: -6px; top: 0.5rem;
+    width: 13px; height: 13px; border-radius: 50%;
+    background: var(--blue-light); border: 2px solid var(--blue-deep);
+    box-shadow: 0 0 0 4px rgba(45,130,210,0.25);
+  }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.4rem; flex-wrap: wrap; gap: 0.6rem; }
+  .exp-role { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: #fff; }
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: #90c4f0;
+    background: rgba(144,196,240,0.12); border: 1px solid rgba(144,196,240,0.22);
+    padding: 0.28rem 0.8rem; border-radius: 20px; white-space: nowrap;
+  }
+  .exp-company { font-size: 0.84rem; color: rgba(255,255,255,0.42); margin-bottom: 1rem; }
+  .exp-bullets { list-style: none; }
+  .exp-bullets li {
+    font-size: 0.88rem; color: rgba(255,255,255,0.7);
+    margin-bottom: 0.6rem; display: flex; align-items: flex-start; gap: 0.75rem;
+  }
+  .exp-bullets li::before { content: '▸'; color: #90c4f0; font-size: 0.8rem; flex-shrink: 0; margin-top: 0.12rem; }
+
+  /* EDUCATION */
+  .education { background: var(--blue-ghost); }
+  .edu-card {
+    background: var(--white); border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 2.5rem;
+    display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start;
+  }
+  .edu-degree { font-family: 'Playfair Display', serif; font-size: 1.65rem; color: var(--ink); margin-bottom: 0.35rem; }
+  .edu-uni { font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .edu-courses { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.3rem; }
+  .course-tag {
+    font-size: 0.75rem; background: var(--blue-ghost);
+    color: var(--blue-deep); padding: 0.3rem 0.8rem;
+    border-radius: 20px; border: 1px solid var(--border); font-weight: 500;
+  }
+  .thesis-box {
+    background: var(--blue-ghost); border-radius: 6px; padding: 1rem 1.2rem;
+    border-left: 3px solid var(--gold);
+  }
+  .thesis-box strong { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); display: block; margin-bottom: 0.35rem; }
+  .thesis-box p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+  .edu-gpa-box { background: var(--blue-deep); border-radius: 10px; padding: 2rem 2.2rem; text-align: center; }
+  .gpa-num { font-family: 'Playfair Display', serif; font-size: 3.2rem; color: #90c4f0; display: block; line-height: 1; }
+  .gpa-label { font-size: 0.67rem; color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.4rem; display: block; }
+
+  /* CERTIFICATIONS */
+  .certifications { background: var(--white); }
+  .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .cert-card {
+    border: 1.5px solid var(--border); border-radius: 8px;
+    background: var(--white); padding: 1.4rem;
+    transition: all 0.22s;
+  }
+  .cert-card:hover { border-color: var(--blue-mid); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,92,168,0.1); }
+  .cert-icon { width: 38px; height: 38px; border-radius: 8px; background: var(--blue-pale); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 0.9rem; }
+  .cert-name { font-size: 0.87rem; font-weight: 600; color: var(--ink); margin-bottom: 0.2rem; line-height: 1.4; }
+  .cert-org { font-size: 0.74rem; color: var(--muted); }
+  .cert-year { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; color: var(--blue-mid); margin-top: 0.6rem; display: block; font-weight: 500; }
+
+  /* CONTACT */
+  .contact-section {
+    background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 100%);
+    padding: 7rem 6rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .contact-section::before {
+    content: ''; position: absolute; right: -80px; bottom: -80px;
+    width: 360px; height: 360px; border-radius: 50%;
+    border: 50px solid rgba(255,255,255,0.05); pointer-events: none;
+  }
+  .contact-section .section-label { color: #90c4f0; }
+  .contact-section .section-label::after { background: #90c4f0; }
+  .contact-title { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.2vw, 2.8rem); color: #fff; margin-bottom: 0.9rem; line-height: 1.2; }
+  .contact-sub { font-size: 0.93rem; color: rgba(255,255,255,0.6); }
+  .contact-items { display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 1; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 1rem 1.3rem;
+    transition: all 0.22s; text-decoration: none;
+  }
+  .contact-item:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); transform: translateX(4px); }
+  .ci-icon { width: 38px; height: 38px; border-radius: 8px; background: rgba(144,196,240,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+  .ci-label { font-size: 0.67rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 0.1rem; }
+  .ci-value { font-size: 0.88rem; color: #fff; font-weight: 500; display: block; }
+
+  /* FOOTER */
+  footer { background: #08213a; padding: 1.4rem 6rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); }
+  footer p { font-family: 'JetBrains Mono', monospace; font-size: 0.67rem; color: #3a5a7a; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 4.5rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 9rem 1.5rem 2rem; }
+    .hero-right { padding: 2rem 1.5rem 4rem; }
+    .about-grid, .projects-grid { grid-template-columns: 1fr; }
+    .proj-card.featured { grid-column: 1; display: block; }
+    .featured-right { margin-top: 1.5rem; }
+    .certs-grid { grid-template-columns: 1fr 1fr; }
+    .edu-card { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 3rem; }
+    footer { padding: 1.2rem 1.5rem; flex-direction: column; gap: 0.4rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Indah Permata Bunda</a>
+  <ul class="nav-links">
+    <li><a href="#about">Profil</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#experience">Pengalaman</a></li>
+    <li><a href="#education">Pendidikan</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Data Analyst · Palembang, Indonesia</div>
+    <h1 class="hero-name">Indah<br><em>Permata</em><br>Bunda</h1>
+    <p class="hero-role">Administration &nbsp;·&nbsp; Power BI &nbsp;·&nbsp; Excel Advanced &nbsp;·&nbsp; Database</p>
+    <p class="hero-desc">Data Analyst dengan pengalaman 2+ tahun dalam pengelolaan database, analisis data, dan pelaporan berbasis dashboard — membantu organisasi mengambil keputusan lebih cerdas melalui data.</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-white">Lihat Proyek</a>
+      <a href="#contact" class="btn btn-outline-w">Hubungi Saya</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-card">
+        <span class="stat-num">2<sup>+</sup></span>
+        <span class="stat-label">Tahun Pengalaman</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">40<sup>%</sup></span>
+        <span class="stat-label">Efisiensi Laporan</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">1K<sup>+</sup></span>
+        <span class="stat-label">Record Dikelola</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">647</span>
+        <span class="stat-label">Skor TOEFL ITP</span>
+      </div>
+    </div>
+    <div class="hero-contact-mini">
+      <div class="mini-row"><span class="mini-dot"></span>Indahpermatabunda09@gmail.com</div>
+      <div class="mini-row"><span class="mini-dot"></span>0882 8618 4639</div>
+      <div class="mini-row"><span class="mini-dot"></span>S-1 Sistem Informasi — UIN Raden Fatah</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">01 — Profil</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2 class="section-title">Mengubah Data<br>Menjadi Keputusan</h2>
+      <p>Saya adalah Data Analyst dengan latar belakang Sistem Informasi yang terampil mengolah data menjadi insight yang actionable. Pengalaman saya mencakup manajemen database skala besar, visualisasi data dengan Power BI, dan otomatisasi pelaporan menggunakan Excel lanjutan.</p>
+      <p>Di ITB Bina Sriwijaya Indonesia, saya berhasil meningkatkan efisiensi pelaporan hingga 40% melalui implementasi formula Excel tingkat lanjut dan pengembangan dashboard KPI real-time untuk mendukung pengambilan keputusan manajerial.</p>
+      <p>Dengan skor TOEFL ITP 647, saya mampu bekerja dalam lingkungan multibahasa dan membaca literatur teknis berbahasa Inggris secara profesional.</p>
+    </div>
+    <div class="skills-wrap">
+      <h4>Keahlian Teknis</h4>
+      <div class="skills-grid">
+        <span class="skill-chip">Microsoft Excel Advanced</span>
+        <span class="skill-chip">Power BI & Dashboard</span>
+        <span class="skill-chip">SQL & Database</span>
+        <span class="skill-chip">Data Cleaning & Validasi</span>
+        <span class="skill-chip">Pivot Table</span>
+        <span class="skill-chip">INDEX-MATCH / VLOOKUP</span>
+        <span class="skill-chip">KPI Reporting</span>
+        <span class="skill-chip">Business Intelligence</span>
+        <span class="skill-chip">Data Rekonsiliasi</span>
+        <span class="skill-chip">Microsoft Office</span>
+      </div>
+      <h4>Soft Skill</h4>
+      <div class="skills-grid">
+        <span class="skill-chip">Ketelitian Tinggi</span>
+        <span class="skill-chip">Analisis & Problem Solving</span>
+        <span class="skill-chip">Manajemen Waktu</span>
+        <span class="skill-chip">Kerja Sama Tim</span>
+      </div>
+      <div class="lang-box">
+        <div>
+          <div class="lang-name">Bahasa Inggris — TOEFL ITP</div>
+          <div class="lang-label">Proficient Level · ETS Certified</div>
+        </div>
+        <div class="lang-score">647</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-label">02 — Proyek & Hasil Kerja</div>
+  <h2 class="section-title">Karya Nyata,<br>Dampak Terukur</h2>
+  <p class="section-sub">Proyek dan hasil kerja yang telah dihasilkan selama pengalaman profesional dan akademis.</p>
+  <div class="projects-grid">
+
+    <!-- Featured -->
+    <div class="proj-card featured">
+      <div class="proj-main">
+        <div class="proj-icon">📊</div>
+        <span class="proj-tag">Power BI · ITB Bina Sriwijaya · 2024–Sekarang</span>
+        <h3 class="proj-title">Dashboard KPI Real-Time Pendaftaran Mahasiswa</h3>
+        <p class="proj-desc">Merancang dan mengembangkan dashboard Power BI komprehensif untuk memantau data pendaftaran mahasiswa secara real-time. Dashboard dilengkapi filter periode, indikator tren, dan visualisasi multi-dimensi guna mendukung pengambilan keputusan manajerial yang lebih cepat dan akurat.</p>
+        <div class="proj-impact">
+          <span class="impact-label">📈 Dampak Terukur</span>
+          <p>Monitoring 1.000+ record mahasiswa secara real-time, mempersingkat waktu pelaporan dari proses manual harian menjadi otomatis dan instan.</p>
+        </div>
+        <div class="proj-tech">
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">DAX</span>
+          <span class="tech-tag">KPI Dashboard</span>
+          <span class="tech-tag">Data Visualization</span>
+          <span class="tech-tag">Real-time Reporting</span>
+          <span class="tech-tag">Filter & Slicers</span>
+        </div>
+      </div>
+      <div class="featured-right">
+        <div class="metric-grid">
+          <div class="metric-item">
+            <span class="metric-val">1K+</span>
+            <span class="metric-lbl">Record Mahasiswa</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">Real</span>
+            <span class="metric-lbl">-time Monitoring</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">Multi</span>
+            <span class="metric-lbl">Dimensi Visual</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-val">KPI</span>
+            <span class="metric-lbl">Indikator Tren</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="proj-card">
+      <div class="proj-icon">⚡</div>
+      <span class="proj-tag">Excel Advanced · Otomatisasi Pelaporan</span>
+      <h3 class="proj-title">Otomatisasi Rekap Data & Efisiensi Laporan 40%</h3>
+      <p class="proj-desc">Membangun sistem rekap data otomatis menggunakan formula Excel tingkat lanjut (VLOOKUP, INDEX-MATCH, IF bersarang) dan Pivot Table dinamis yang memotong waktu pembuatan laporan dari jam menjadi menit.</p>
+      <div class="proj-impact">
+        <span class="impact-label">⚡ Dampak Terukur</span>
+        <p>Efisiensi pelaporan meningkat 40% — proses yang sebelumnya memerlukan beberapa jam kini selesai dalam hitungan menit.</p>
+      </div>
+      <div class="proj-tech">
+        <span class="tech-tag">Excel Advanced</span>
+        <span class="tech-tag">VLOOKUP</span>
+        <span class="tech-tag">INDEX-MATCH</span>
+        <span class="tech-tag">Pivot Table</span>
+        <span class="tech-tag">IF Formula</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="proj-card">
+      <div class="proj-icon">🛡️</div>
+      <span class="proj-tag">Database Admin · Data Quality Management</span>
+      <h3 class="proj-title">Data Cleaning & Rekonsiliasi 1.000+ Record Mahasiswa</h3>
+      <p class="proj-desc">Melakukan proses data cleaning, validasi, dan rekonsiliasi menyeluruh terhadap lebih dari 1.000 record mahasiswa. Menerapkan prosedur backup berkala, pengecekan integritas file, dan dokumentasi versi untuk menjaga keamanan data administrasi.</p>
+      <div class="proj-impact">
+        <span class="impact-label">🛡️ Dampak Terukur</span>
+        <p>Konsistensi, akurasi, dan kelengkapan data terjaga — meminimalkan risiko data error dalam pelaporan institusi.</p>
+      </div>
+      <div class="proj-tech">
+        <span class="tech-tag">Data Cleaning</span>
+        <span class="tech-tag">Validasi Data</span>
+        <span class="tech-tag">Rekonsiliasi</span>
+        <span class="tech-tag">Database Admin</span>
+        <span class="tech-tag">Backup & Integritas</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="proj-card">
+      <div class="proj-icon">🔍</div>
+      <span class="proj-tag">Data Analysis · BPJS Ketenagakerjaan · 2022</span>
+      <h3 class="proj-title">Analisis Tren Feedback Publik & Efektivitas Edukasi</h3>
+      <p class="proj-desc">Menganalisis 100+ data feedback publik untuk mengidentifikasi pola perilaku audiens. Memonitor fluktuasi pemahaman publik melalui analisis tren berkala di Excel guna mengevaluasi efektivitas program edukasi BPJS Ketenagakerjaan.</p>
+      <div class="proj-impact">
+        <span class="impact-label">📊 Dampak Terukur</span>
+        <p>Insight dari analisis data digunakan untuk menyesuaikan strategi konten edukasi agar lebih tepat sasaran bagi audiens.</p>
+      </div>
+      <div class="proj-tech">
+        <span class="tech-tag">Excel Analysis</span>
+        <span class="tech-tag">Trend Analysis</span>
+        <span class="tech-tag">Feedback Analysis</span>
+        <span class="tech-tag">Data Reporting</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-label">03 — Pengalaman</div>
+  <h2 class="section-title" style="color:#fff;margin-bottom:3.5rem">Perjalanan Profesional</h2>
+  <div class="exp-timeline">
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Staf Administrasi & Database</div>
+        <span class="exp-period">Mei 2024 – Sekarang</span>
+      </div>
+      <div class="exp-company">ITB Bina Sriwijaya Indonesia &nbsp;·&nbsp; Palembang</div>
+      <ul class="exp-bullets">
+        <li>Meningkatkan efisiensi pelaporan hingga <strong style="color:#fff">40%</strong> melalui otomatisasi rekap data menggunakan formula Excel lanjutan (VLOOKUP, INDEX-MATCH, Pivot Table).</li>
+        <li>Mengembangkan dashboard <strong style="color:#fff">Power BI</strong> dengan filter periode dan indikator tren untuk pemantauan real-time data pendaftaran mahasiswa.</li>
+        <li>Melaksanakan data cleaning, validasi, dan rekonsiliasi terhadap <strong style="color:#fff">1.000+ record mahasiswa</strong>, memastikan konsistensi, akurasi, dan kelengkapan data.</li>
+        <li>Menerapkan prosedur kontrol data: backup berkala, pengecekan integritas file, dan dokumentasi versi untuk menjaga keamanan data administrasi.</li>
+      </ul>
+    </div>
+    <div class="exp-item">
+      <div class="exp-header">
+        <div class="exp-role">Agile Agent (Magang)</div>
+        <span class="exp-period">Ags 2022 – Des 2022</span>
+      </div>
+      <div class="exp-company">BPJS Ketenagakerjaan &nbsp;·&nbsp; Palembang</div>
+      <ul class="exp-bullets">
+        <li>Menganalisis <strong style="color:#fff">100+ data feedback publik</strong> untuk mengidentifikasi pola perilaku audiens dan mendukung pembuatan konten edukasi yang tepat sasaran.</li>
+        <li>Memonitor fluktuasi pemahaman publik melalui analisis tren berkala di Excel guna mengevaluasi efektivitas program edukasi.</li>
+        <li>Berkontribusi dalam produksi konten edukasi berbasis data (video & media promosi) sesuai kebutuhan audiens.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education" id="education">
+  <div class="section-label">04 — Pendidikan</div>
+  <h2 class="section-title">Latar Belakang Akademis</h2>
+  <div class="edu-card">
+    <div>
+      <h3 class="edu-degree">S-1 Sistem Informasi</h3>
+      <p class="edu-uni">Universitas Islam Negeri Raden Fatah Palembang &nbsp;·&nbsp; Agustus 2019 – Mei 2024</p>
+      <div class="edu-courses">
+        <span class="course-tag">Statistika</span>
+        <span class="course-tag">Sistem Basis Data</span>
+        <span class="course-tag">SQL</span>
+        <span class="course-tag">Business Intelligence</span>
+        <span class="course-tag">Sistem Pendukung Keputusan</span>
+        <span class="course-tag">Analisis Data</span>
+      </div>
+      <div class="thesis-box">
+        <strong>📝 Skripsi</strong>
+        <p>Penerapan End-User Computing Satisfaction terhadap Kepuasan Pengguna Aplikasi E-Coklit Kota Palembang — menganalisis faktor-faktor yang mempengaruhi tingkat kepuasan pengguna sistem informasi berbasis digital.</p>
+      </div>
+    </div>
+    <div class="edu-gpa-box">
+      <span class="gpa-num">3.23</span>
+      <span class="gpa-label">IPK / GPA</span>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certifications" id="certifications">
+  <div class="section-label">05 — Sertifikat & Pelatihan</div>
+  <h2 class="section-title">Pengembangan Kompetensi</h2>
+  <p class="section-sub">Komitmen berkelanjutan terhadap pembelajaran dan peningkatan keahlian di bidang data analytics dan teknologi.</p>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon">🏆</div>
+      <div class="cert-name">TOEFL ITP — Score 647</div>
+      <div class="cert-org">ETS / Lembaga Resmi</div>
+      <span class="cert-year">Proficient Level</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">📊</div>
+      <div class="cert-name">Intro to Data Analytics</div>
+      <div class="cert-org">RevoU</div>
+      <span class="cert-year">2025</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🗄️</div>
+      <div class="cert-name">Database Foundations</div>
+      <div class="cert-org">Oracle Academy</div>
+      <span class="cert-year">2024</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">🎓</div>
+      <div class="cert-name">Wawasan Karir Data Analytics</div>
+      <div class="cert-org">Digital Talent Scholarship — Kominfo</div>
+      <span class="cert-year">2024</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">📗</div>
+      <div class="cert-name">Mini Bootcamp Microsoft Excel</div>
+      <div class="cert-org">Bootcamp Intensif</div>
+      <span class="cert-year">2024</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">💻</div>
+      <div class="cert-name">Getting Started with Excel</div>
+      <div class="cert-org">Coursera</div>
+      <span class="cert-year">2024</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">💰</div>
+      <div class="cert-name">Create a Financial Statement with Excel</div>
+      <div class="cert-org">Coursera</div>
+      <span class="cert-year">2024</span>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon">📱</div>
+      <div class="cert-name">Dasar-Dasar Digital Marketing</div>
+      <div class="cert-org">Pelatihan Sertifikasi</div>
+      <span class="cert-year">2024</span>
+    </div>
+    <div class="cert-card" style="background:var(--blue-ghost);border-style:dashed;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--muted);font-size:0.82rem;">
+      <div><div style="font-size:1.8rem;color:var(--blue-light);margin-bottom:0.4rem">+</div>Terus Belajar &<br>Berkembang</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div>
+    <div class="section-label">06 — Kontak</div>
+    <h2 class="contact-title">Mari Bekerja<br>Sama</h2>
+    <p class="contact-sub">Terbuka untuk peluang sebagai Data Analyst, Database Administrator, atau posisi serupa. Jangan ragu untuk menghubungi saya.</p>
+  </div>
+  <div class="contact-items">
+    <a href="tel:+6288286184639" class="contact-item">
+      <div class="ci-icon">📱</div>
+      <div>
+        <span class="ci-label">Telepon / WhatsApp</span>
+        <span class="ci-value">0882 8618 4639</span>
+      </div>
+    </a>
+    <a href="mailto:Indahpermatabunda09@gmail.com" class="contact-item">
+      <div class="ci-icon">✉️</div>
+      <div>
+        <span class="ci-label">Email</span>
+        <span class="ci-value">Indahpermatabunda09@gmail.com</span>
+      </div>
+    </a>
+    <a href="https://www.linkedin.com/in/indahpermatabunda" target="_blank" class="contact-item">
+      <div class="ci-icon">🔗</div>
+      <div>
+        <span class="ci-label">LinkedIn</span>
+        <span class="ci-value">linkedin.com/in/indahpermatabunda</span>
+      </div>
+    </a>
+    <a href="#" class="contact-item">
+      <div class="ci-icon">📍</div>
+      <div>
+        <span class="ci-label">Lokasi</span>
+        <span class="ci-value">Palembang, Sumatera Selatan</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 Indah Permata Bunda — Data Analyst Portfolio</p>
+  <p>Palembang, Indonesia</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 180);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.exp-item').forEach(el => observer.observe(el));
+
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 200) cur = s.id; });
+    navLinks.forEach(a => { a.style.color = a.getAttribute('href') === `#${cur}` ? 'var(--blue-mid)' : ''; });
+  });
+</script>
+</body>
+</html>
